@@ -39,10 +39,11 @@
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             will-change: transform;
+            transform: translate3d(0, 0, 0);
         }
         .flip-card:hover .flip-card-inner,
         .flip-card:focus .flip-card-inner {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg) translate3d(0, 0, 0);
         }
         .flip-card-front, .flip-card-back {
             backface-visibility: hidden;
@@ -53,7 +54,7 @@
             backface-visibility: hidden;
         }
         .flip-card-back {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg) translate3d(0, 0, 0);
         }
         .food-icon {
             font-size: 4rem;
@@ -93,10 +94,26 @@
         /* Performance optimizations */
         .flip-card {
             contain: layout style paint;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
         
         .flip-card-inner {
             contain: layout style paint;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* Fix scroll glitches */
+        .flip-card-front, .flip-card-back {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        /* Smooth scroll container */
+        body {
+            overflow-x: hidden;
         }
         
         /* Reduce motion for users who prefer it */
@@ -106,6 +123,16 @@
             }
             .animate-float {
                 animation: none;
+            }
+        }
+        
+        /* Prevent scroll glitches on mobile */
+        @media (max-width: 768px) {
+            .flip-card {
+                transform: translate3d(0, 0, 0);
+            }
+            .flip-card-inner {
+                transform: translate3d(0, 0, 0);
             }
         }
     </style>
@@ -385,27 +412,27 @@
     </footer>
 
     <script>
-        // Optimized mobile experience with better performance
+        // Enhanced mobile experience with scroll glitch fixes
         document.addEventListener('DOMContentLoaded', function() {
-            // Faster loading animation
+            // Improved loading animation with better performance
             const cards = document.querySelectorAll('.flip-card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(10px)';
+                card.style.transform = 'translate3d(0, 10px, 0)';
                 setTimeout(() => {
                     card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                     card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100); // Much faster loading
+                    card.style.transform = 'translate3d(0, 0, 0)';
+                }, index * 100);
             });
 
-            // Optimized button interactions
+            // Enhanced button interactions
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
                 // Touch start
                 button.addEventListener('touchstart', function(e) {
                     e.preventDefault();
-                    this.style.transform = 'scale(0.95)';
+                    this.style.transform = 'scale(0.95) translate3d(0, 0, 0)';
                     this.style.transition = 'transform 0.1s ease';
                 }, { passive: false });
 
@@ -413,43 +440,48 @@
                 button.addEventListener('touchend', function(e) {
                     e.preventDefault();
                     setTimeout(() => {
-                        this.style.transform = 'scale(1)';
+                        this.style.transform = 'scale(1) translate3d(0, 0, 0)';
                         this.style.transition = 'transform 0.15s ease';
                     }, 50);
                 }, { passive: false });
 
                 // Mouse click (for desktop)
                 button.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
+                    this.style.transform = 'scale(0.95) translate3d(0, 0, 0)';
                     setTimeout(() => {
-                        this.style.transform = 'scale(1)';
+                        this.style.transform = 'scale(1) translate3d(0, 0, 0)';
                     }, 100);
                 });
             });
 
-            // Optimized touch support for flip cards
+            // Enhanced touch support for flip cards with scroll fix
             const flipCards = document.querySelectorAll('.flip-card');
             flipCards.forEach(card => {
                 let touchStartTime = 0;
                 let touchEndTime = 0;
                 let isFlipped = false;
+                let touchStartY = 0;
+                let touchEndY = 0;
 
                 // Touch start
                 card.addEventListener('touchstart', function(e) {
                     touchStartTime = new Date().getTime();
+                    touchStartY = e.touches[0].clientY;
                 }, { passive: true });
 
                 // Touch end
                 card.addEventListener('touchend', function(e) {
                     touchEndTime = new Date().getTime();
+                    touchEndY = e.changedTouches[0].clientY;
                     const touchDuration = touchEndTime - touchStartTime;
+                    const touchDistance = Math.abs(touchEndY - touchStartY);
                     
-                    // Faster tap detection
-                    if (touchDuration > 50 && touchDuration < 500) {
+                    // Only flip if it's a tap (not a scroll)
+                    if (touchDuration > 50 && touchDuration < 500 && touchDistance < 10) {
                         const inner = this.querySelector('.flip-card-inner');
                         if (inner) {
                             isFlipped = !isFlipped;
-                            inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                            inner.style.transform = isFlipped ? 'rotateY(180deg) translate3d(0, 0, 0)' : 'rotateY(0deg) translate3d(0, 0, 0)';
                         }
                     }
                 }, { passive: true });
@@ -459,25 +491,44 @@
                     const inner = this.querySelector('.flip-card-inner');
                     if (inner) {
                         isFlipped = !isFlipped;
-                        inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                        inner.style.transform = isFlipped ? 'rotateY(180deg) translate3d(0, 0, 0)' : 'rotateY(0deg) translate3d(0, 0, 0)';
                     }
                 });
             });
 
-            // Optimized scroll performance
+            // Enhanced scroll performance with glitch prevention
             let ticking = false;
+            let lastScrollY = window.scrollY;
+            
             function updateScroll() {
                 ticking = false;
             }
 
             window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    requestAnimationFrame(updateScroll);
-                    ticking = true;
+                const currentScrollY = window.scrollY;
+                
+                // Only update if scroll position changed significantly
+                if (Math.abs(currentScrollY - lastScrollY) > 5) {
+                    lastScrollY = currentScrollY;
+                    
+                    if (!ticking) {
+                        requestAnimationFrame(updateScroll);
+                        ticking = true;
+                    }
                 }
             }, { passive: true });
 
-            // Add smooth scroll for anchor links
+            // Prevent scroll glitches on mobile
+            let isScrolling = false;
+            window.addEventListener('scroll', function() {
+                isScrolling = true;
+                clearTimeout(window.scrollTimeout);
+                window.scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                }, 150);
+            }, { passive: true });
+
+            // Enhanced smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -489,6 +540,26 @@
                         });
                     }
                 });
+            });
+
+            // Add intersection observer for better performance
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '50px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translate3d(0, 0, 0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe cards for better scroll performance
+            cards.forEach(card => {
+                observer.observe(card);
             });
         });
     </script>
