@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oui Oui Döner - Digital Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'flip': 'flip 0.6s ease-in-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        flip: {
+                            '0%': { transform: 'rotateY(0deg)' },
+                            '100%': { transform: 'rotateY(180deg)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 min-h-screen">
+    <!-- Header -->
+    <header class="text-center py-8 px-4">
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 animate-float">
+            Oui Oui Döner
+        </h1>
+        <p class="text-xl text-gray-300 mb-2">Authentic Turkish Cuisine</p>
+        <p class="text-lg text-gray-400">Scan QR Code • Order Online • Enjoy Fresh Food</p>
+    </header>
+
+    <!-- Menu Categories -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Döner Kebab Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <video class="video-bg" autoplay muted loop>
+                                <source src="shawarma.mp4" type="video/mp4">
+                            </video>
+                            <div class="overlay"></div>
+                            <div class="absolute inset-0 flex flex-col justify-end p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Döner Kebab</h3>
+                                <p class="text-white text-lg">Traditional Turkish wrap</p>
+                                <div class="flex justify-between items-center mt-4">
+                                    <span class="text-2xl font-bold text-white">€8.50</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">Popular</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Döner Kebab</h3>
+                        <p class="text-gray-600 mb-4">Succulent lamb or chicken, fresh vegetables, and our signature sauce wrapped in warm pita bread.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Calories:</span>
+                                <span class="font-semibold">450 kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Protein:</span>
+                                <span class="font-semibold">25g</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-red-600">€8.50</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burger Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <video class="video-bg" autoplay muted loop>
+                                <source src="burger.mp4" type="video/mp4">
+                            </video>
+                            <div class="overlay"></div>
+                            <div class="absolute inset-0 flex flex-col justify-end p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Gourmet Burger</h3>
+                                <p class="text-white text-lg">Juicy beef with premium toppings</p>
+                                <div class="flex justify-between items-center mt-4">
+                                    <span class="text-2xl font-bold text-white">€12.90</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">New</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Gourmet Burger</h3>
+                        <p class="text-gray-600 mb-4">Premium beef patty with melted cheese, fresh lettuce, tomatoes, and our special sauce on a brioche bun.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Calories:</span>
+                                <span class="font-semibold">680 kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Protein:</span>
+                                <span class="font-semibold">35g</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-red-600">€12.90</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pizza Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <video class="video-bg" autoplay muted loop>
+                                <source src="pizza.mp4" type="video/mp4">
+                            </video>
+                            <div class="overlay"></div>
+                            <div class="absolute inset-0 flex flex-col justify-end p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Turkish Pizza</h3>
+                                <p class="text-white text-lg">Pide with authentic toppings</p>
+                                <div class="flex justify-between items-center mt-4">
+                                    <span class="text-2xl font-bold text-white">€10.50</span>
+                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">Spicy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Turkish Pizza (Pide)</h3>
+                        <p class="text-gray-600 mb-4">Traditional Turkish flatbread topped with minced meat, vegetables, and herbs, baked to perfection.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Calories:</span>
+                                <span class="font-semibold">520 kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Protein:</span>
+                                <span class="font-semibold">28g</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-red-600">€10.50</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shawarma Special Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <video class="video-bg" autoplay muted loop>
+                                <source src="shawrma2.mp4" type="video/mp4">
+                            </video>
+                            <div class="overlay"></div>
+                            <div class="absolute inset-0 flex flex-col justify-end p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Shawarma Special</h3>
+                                <p class="text-white text-lg">Extra large with premium meat</p>
+                                <div class="flex justify-between items-center mt-4">
+                                    <span class="text-2xl font-bold text-white">€11.90</span>
+                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm">Premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Shawarma Special</h3>
+                        <p class="text-gray-600 mb-4">Extra large shawarma with premium marinated meat, double portion of vegetables, and special sauce.</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Calories:</span>
+                                <span class="font-semibold">580 kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Protein:</span>
+                                <span class="font-semibold">32g</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-red-600">€11.90</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sides Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-yellow-400 to-orange-500">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Sides & Drinks</h3>
+                                <p class="text-white text-lg mb-4">Perfect accompaniments</p>
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div class="bg-white bg-opacity-20 rounded-lg p-2">
+                                        <span class="font-bold">French Fries</span><br>
+                                        <span>€3.50</span>
+                                    </div>
+                                    <div class="bg-white bg-opacity-20 rounded-lg p-2">
+                                        <span class="font-bold">Soft Drinks</span><br>
+                                        <span>€2.50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Sides & Drinks</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">French Fries</span>
+                                <span class="font-semibold">€3.50</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Onion Rings</span>
+                                <span class="font-semibold">€4.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Soft Drinks</span>
+                                <span class="font-semibold">€2.50</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Turkish Tea</span>
+                                <span class="font-semibold">€1.50</span>
+                            </div>
+                        </div>
+                        <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                            View All Sides
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Card -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-blue-500 to-purple-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-bold text-white mb-2">Contact Us</h3>
+                                <p class="text-white text-lg mb-4">We'd love to hear from you</p>
+                                <div class="space-y-2 text-sm">
+                                    <div>📞 +49 123 456 789</div>
+                                    <div>📧 info@ouiouidoner.de</div>
+                                    <div>📍 Hauptstraße 123, Berlin</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Opening Hours</h3>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Monday - Friday</span>
+                                <span class="font-semibold">11:00 - 22:00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Saturday</span>
+                                <span class="font-semibold">12:00 - 23:00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Sunday</span>
+                                <span class="font-semibold">13:00 - 21:00</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-600 mb-2">Free delivery for orders over €15</p>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Order Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 px-4">
+        <div class="flex justify-center space-x-6 mb-4">
+            <div class="bg-white rounded-lg p-4 shadow-lg">
+                <h4 class="font-bold text-gray-800 mb-2">QR Code Menu</h4>
+                <p class="text-sm text-gray-600">Scan • Order • Enjoy</p>
+            </div>
+        </div>
+        <p class="text-gray-400">© 2024 Oui Oui Döner. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add smooth scrolling and enhance user experience
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading animation
+            const cards = document.querySelectorAll('.flip-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Add click sound effect for buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add haptic feedback or visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Oui Oui Döner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-4xl font-bold text-white text-center mb-8">QR Code Generator</h1>
+            
+            <div class="bg-white rounded-2xl shadow-2xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Generate QR Code for Your Menu</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Menu URL:</label>
+                        <input type="url" id="menuUrl" value="https://your-domain.com/index.html" 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">QR Code Size:</label>
+                        <select id="qrSize" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                            <option value="200">Small (200px)</option>
+                            <option value="300" selected>Medium (300px)</option>
+                            <option value="400">Large (400px)</option>
+                        </select>
+                    </div>
+                    
+                    <button onclick="generateQR()" 
+                            class="w-full bg-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                        Generate QR Code
+                    </button>
+                </div>
+                
+                <div id="qrOutput" class="mt-8 text-center hidden">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Your Menu QR Code</h3>
+                    <div id="qrCode" class="inline-block bg-white p-4 rounded-lg shadow-lg"></div>
+                    <div class="mt-4">
+                        <button onclick="downloadQR()" 
+                                class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Download QR Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-white rounded-2xl shadow-2xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">How to Use</h2>
+                <div class="space-y-4 text-gray-700">
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</span>
+                        <p>Enter your menu URL (where your awesome menu page is hosted)</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
+                        <p>Choose the QR code size you want</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</span>
+                        <p>Generate and download the QR code</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</span>
+                        <p>Share the QR code with your friends - when they scan it, they'll see your awesome menu!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateQR() {
+            const menuUrl = document.getElementById('menuUrl').value;
+            const size = document.getElementById('qrSize').value;
+            
+            if (!menuUrl) {
+                alert('Please enter a menu URL');
+                return;
+            }
+            
+            // Generate QR code for the menu URL
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '';
+            
+            QRCode.toCanvas(qrContainer, menuUrl, {
+                width: parseInt(size),
+                margin: 2,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function(error) {
+                if (error) {
+                    console.error(error);
+                    alert('Error generating QR code');
+                } else {
+                    document.getElementById('qrOutput').classList.remove('hidden');
+                }
+            });
+        }
+        
+        function downloadQR() {
+            const canvas = document.querySelector('#qrCode canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'menu-qr-code.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+        
+        // Auto-generate QR code on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generateQR();
+        });
+    </script>
+</body>
+</html> 
