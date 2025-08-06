@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator - Oui Oui Döner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 min-h-screen">
     <div class="container mx-auto px-4 py-8">
@@ -18,7 +18,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2">Menu URL:</label>
-                        <input type="url" id="menuUrl" value="https://your-domain.com/index.html" 
+                        <input type="url" id="menuUrl" value="https://bassit.vercel.app/" 
                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                     </div>
                     
@@ -37,7 +37,7 @@
                     </button>
                 </div>
                 
-                <div id="qrOutput" class="mt-8 text-center hidden">
+                <div id="qrOutput" class="mt-8 text-center">
                     <h3 class="text-xl font-bold text-gray-800 mb-4">Your Menu QR Code</h3>
                     <div id="qrCode" class="inline-block bg-white p-4 rounded-lg shadow-lg"></div>
                     <div class="mt-4">
@@ -74,6 +74,8 @@
     </div>
 
     <script>
+        let qrCodeInstance = null;
+        
         function generateQR() {
             const menuUrl = document.getElementById('menuUrl').value;
             const size = document.getElementById('qrSize').value;
@@ -83,24 +85,18 @@
                 return;
             }
             
-            // Generate QR code for the menu URL
+            // Clear previous QR code
             const qrContainer = document.getElementById('qrCode');
             qrContainer.innerHTML = '';
             
-            QRCode.toCanvas(qrContainer, menuUrl, {
+            // Create new QR code
+            qrCodeInstance = new QRCode(qrContainer, {
+                text: menuUrl,
                 width: parseInt(size),
-                margin: 2,
-                color: {
-                    dark: '#000000',
-                    light: '#FFFFFF'
-                }
-            }, function(error) {
-                if (error) {
-                    console.error(error);
-                    alert('Error generating QR code');
-                } else {
-                    document.getElementById('qrOutput').classList.remove('hidden');
-                }
+                height: parseInt(size),
+                colorDark: '#000000',
+                colorLight: '#FFFFFF',
+                correctLevel: QRCode.CorrectLevel.H
             });
         }
         
@@ -108,15 +104,20 @@
             const canvas = document.querySelector('#qrCode canvas');
             if (canvas) {
                 const link = document.createElement('a');
-                link.download = 'menu-qr-code.png';
+                link.download = 'oui-oui-doner-menu-qr.png';
                 link.href = canvas.toDataURL();
                 link.click();
+            } else {
+                alert('Please generate a QR code first');
             }
         }
         
         // Auto-generate QR code on page load
         document.addEventListener('DOMContentLoaded', function() {
-            generateQR();
+            // Wait a moment for the library to load
+            setTimeout(() => {
+                generateQR();
+            }, 500);
         });
     </script>
 </body>
