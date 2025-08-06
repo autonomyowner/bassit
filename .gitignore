@@ -1,0 +1,11 @@
+# Large media files
+*.mp4
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Keep only essential files for deployment
+# index.html
+# qr-generator.html
+# README.md 
