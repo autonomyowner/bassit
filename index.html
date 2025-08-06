@@ -6,6 +6,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e293b">
+    <link rel="preload" href="pizza03.jpg" as="image">
+    <link rel="preload" href="b1.jpg" as="image">
+    <link rel="preload" href="s1.jpg" as="image">
     <title>Oui Oui Döner - Digital Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,14 +17,9 @@
             theme: {
                 extend: {
                     animation: {
-                        'flip': 'flip 0.6s ease-in-out',
                         'float': 'float 3s ease-in-out infinite',
                     },
                     keyframes: {
-                        flip: {
-                            '0%': { transform: 'rotateY(0deg)' },
-                            '100%': { transform: 'rotateY(180deg)' }
-                        },
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' }
@@ -37,7 +36,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         .flip-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             will-change: transform;
         }
@@ -67,7 +66,7 @@
                 margin-bottom: 1rem;
             }
             .flip-card-inner {
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
         
@@ -88,6 +87,25 @@
         @media (hover: none) and (pointer: coarse) {
             .flip-card:hover .flip-card-inner {
                 transform: none;
+            }
+        }
+        
+        /* Performance optimizations */
+        .flip-card {
+            contain: layout style paint;
+        }
+        
+        .flip-card-inner {
+            contain: layout style paint;
+        }
+        
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            .flip-card-inner {
+                transition: none;
+            }
+            .animate-float {
+                animation: none;
             }
         }
     </style>
@@ -367,21 +385,21 @@
     </footer>
 
     <script>
-        // Enhanced mobile experience with touch support
+        // Optimized mobile experience with better performance
         document.addEventListener('DOMContentLoaded', function() {
-            // Add loading animation with better mobile performance
+            // Faster loading animation
             const cards = document.querySelectorAll('.flip-card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+                card.style.transform = 'translateY(10px)';
                 setTimeout(() => {
-                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, index * 150); // Faster loading on mobile
+                }, index * 100); // Much faster loading
             });
 
-            // Enhanced button interactions with touch support
+            // Optimized button interactions
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
                 // Touch start
@@ -396,8 +414,8 @@
                     e.preventDefault();
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
-                        this.style.transition = 'transform 0.2s ease';
-                    }, 100);
+                        this.style.transition = 'transform 0.15s ease';
+                    }, 50);
                 }, { passive: false });
 
                 // Mouse click (for desktop)
@@ -405,11 +423,11 @@
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
-                    }, 150);
+                    }, 100);
                 });
             });
 
-            // Add touch support for flip cards on mobile
+            // Optimized touch support for flip cards
             const flipCards = document.querySelectorAll('.flip-card');
             flipCards.forEach(card => {
                 let touchStartTime = 0;
@@ -426,8 +444,8 @@
                     touchEndTime = new Date().getTime();
                     const touchDuration = touchEndTime - touchStartTime;
                     
-                    // Only flip if touch duration is between 100ms and 1000ms (tap)
-                    if (touchDuration > 100 && touchDuration < 1000) {
+                    // Faster tap detection
+                    if (touchDuration > 50 && touchDuration < 500) {
                         const inner = this.querySelector('.flip-card-inner');
                         if (inner) {
                             isFlipped = !isFlipped;
@@ -446,7 +464,7 @@
                 });
             });
 
-            // Optimize scroll performance
+            // Optimized scroll performance
             let ticking = false;
             function updateScroll() {
                 ticking = false;
