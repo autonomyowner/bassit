@@ -41,20 +41,39 @@
         }
     </script>
     <style>
+        /* Mobile-First Responsive Design */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
         .flip-card {
             perspective: 1000px;
             touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
+
+        .flip-card:active {
+            transform: scale(0.98);
+        }
+
         .flip-card-inner {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             will-change: transform;
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
-        .flip-card:hover .flip-card-inner,
-        .flip-card:focus .flip-card-inner {
+
+        /* Click-to-flip functionality - NO hover on mobile */
+        .flip-card.flipped .flip-card-inner {
             transform: rotateY(180deg);
         }
+
         .flip-card-front, .flip-card-back {
             backface-visibility: hidden;
             position: absolute;
@@ -62,39 +81,45 @@
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            border-radius: 16px;
         }
+
         .flip-card-back {
             transform: rotateY(180deg);
         }
+
         .food-icon {
-            font-size: 4rem;
-            opacity: 0.8;
+            font-size: 3rem;
+            opacity: 0.9;
         }
 
-        /* Wanted Poster Styling */
+        /* Enhanced Wanted Poster Styling */
         .wanted-poster {
             background: linear-gradient(45deg, #8B4513, #D2691E);
-            border: 8px solid #654321;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);
+            border: 6px solid #654321;
+            box-shadow:
+                inset 0 0 20px rgba(0,0,0,0.5),
+                0 0 20px rgba(0,0,0,0.3),
+                0 4px 15px rgba(0,0,0,0.2);
             position: relative;
         }
 
         .wanted-poster::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
             background: repeating-linear-gradient(
                 45deg,
                 #8B0000,
-                #8B0000 10px,
-                #DC143C 10px,
-                #DC143C 20px
+                #8B0000 8px,
+                #DC143C 8px,
+                #DC143C 16px
             );
             z-index: -1;
-            border-radius: 15px;
+            border-radius: 16px;
         }
 
         .wanted-text {
@@ -106,8 +131,48 @@
         .price-tag {
             background: linear-gradient(45deg, #FFD700, #FFA500);
             border: 3px solid #8B4513;
-            transform: rotate(-5deg);
+            transform: rotate(-3deg);
             box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .price-tag:hover {
+            transform: rotate(-3deg) scale(1.05);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .flip-card {
+                height: 280px !important;
+                margin-bottom: 1rem;
+            }
+
+            .flip-card-front, .flip-card-back {
+                padding: 1rem;
+            }
+
+            .wanted-text {
+                font-size: 1.5rem;
+            }
+
+            .price-tag {
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced touch feedback */
+        .flip-card:active .flip-card-inner {
+            transform: scale(0.95) rotateY(0deg);
+        }
+
+        .flip-card.flipped:active .flip-card-inner {
+            transform: scale(0.95) rotateY(180deg);
         }
         
         /* Mobile optimizations */
@@ -208,50 +273,86 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- 3 Offers -->
-                <div class="flip-card h-80">
+                <div class="flip-card h-80" onclick="flipCard(this)">
                     <div class="flip-card-inner relative h-full">
                         <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                             <div class="relative h-full">
-                                <img src="3offer.jpg" alt="3 Offres Spéciales" class="w-full h-full object-cover opacity-80">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                                <img src="488890100_18022639262694243_1073111090724868914_n.jpg" alt="Kid enjoying Wanted Burger" class="w-full h-full object-cover opacity-90">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60"></div>
                                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
-                                    <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">3 OFFRES</h3>
-                                    <p class="text-white text-sm font-bold">Offres spéciales limitées</p>
+                                    <div class="bg-black bg-opacity-70 rounded-xl p-4 border-4 border-yellow-400">
+                                        <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">3 OFFRES</h3>
+                                        <p class="text-white text-sm font-bold">Offres spéciales limitées</p>
+                                        <p class="text-yellow-300 text-xs mt-2">👆 Cliquez pour voir les détails</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
                             <h3 class="text-xl font-wanted text-yellow-400 mb-3">3 OFFRES SPÉCIALES</h3>
-                            <div class="text-white text-sm space-y-2">
-                                <p>🍔 Burger + Frites + Boisson</p>
-                                <p>🌮 Tacos + Frites + Boisson</p>
-                                <p>🥪 Sandwich + Frites + Boisson</p>
+                            <div class="text-white text-sm space-y-3">
+                                <div class="bg-black bg-opacity-50 rounded-lg p-3">
+                                    <p class="font-bold text-yellow-300">🍔 OFFRE BURGER</p>
+                                    <p>Burger Classic + Frites + Boisson</p>
+                                    <p class="text-green-400 font-bold">Prix: 850 DA</p>
+                                </div>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-3">
+                                    <p class="font-bold text-yellow-300">🌮 OFFRE TACOS</p>
+                                    <p>Tacos Medium + Frites + Boisson</p>
+                                    <p class="text-green-400 font-bold">Prix: 950 DA</p>
+                                </div>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-3">
+                                    <p class="font-bold text-yellow-300">🥪 OFFRE SANDWICH</p>
+                                    <p>Sandwich + Frites + Boisson</p>
+                                    <p class="text-green-400 font-bold">Prix: 800 DA</p>
+                                </div>
                             </div>
+                            <p class="text-yellow-300 text-xs mt-3 text-center">👆 Cliquez pour retourner</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- 4 Offers -->
-                <div class="flip-card h-80">
+                <div class="flip-card h-80" onclick="flipCard(this)">
                     <div class="flip-card-inner relative h-full">
                         <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                             <div class="relative h-full">
                                 <img src="4offer.jpg" alt="4 Offres Premium" class="w-full h-full object-cover opacity-80">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                                 <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
-                                    <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">4 OFFRES</h3>
-                                    <p class="text-white text-sm font-bold">Offres premium exclusives</p>
+                                    <div class="bg-black bg-opacity-70 rounded-xl p-4 border-4 border-red-400">
+                                        <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">4 OFFRES</h3>
+                                        <p class="text-white text-sm font-bold">Offres premium exclusives</p>
+                                        <p class="text-yellow-300 text-xs mt-2">👆 Cliquez pour voir les détails</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
                             <h3 class="text-xl font-wanted text-yellow-400 mb-3">4 OFFRES PREMIUM</h3>
                             <div class="text-white text-sm space-y-2">
-                                <p>🍔 Burger Premium + Extras</p>
-                                <p>🥩 Steak + Accompagnements</p>
-                                <p>🍗 Poulet + Sides</p>
-                                <p>🌮 Tacos XL + Boisson</p>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                                    <p class="font-bold text-yellow-300">🍔 WANTED BURGER</p>
+                                    <p>Burger signature + Frites + Boisson</p>
+                                    <p class="text-green-400 font-bold">Prix: 1100 DA</p>
+                                </div>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                                    <p class="font-bold text-yellow-300">🥩 FILET STEAK PLAT</p>
+                                    <p>Filet + Frites + Œuf + Salade + Riz</p>
+                                    <p class="text-green-400 font-bold">Prix: 1850 DA</p>
+                                </div>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                                    <p class="font-bold text-yellow-300">🍗 CHICKEN PREMIUM</p>
+                                    <p>Poulet pané + Accompagnements</p>
+                                    <p class="text-green-400 font-bold">Prix: 1100 DA</p>
+                                </div>
+                                <div class="bg-black bg-opacity-50 rounded-lg p-2">
+                                    <p class="font-bold text-yellow-300">🌮 TACOS XL</p>
+                                    <p>Tacos Large + Frites + Boisson</p>
+                                    <p class="text-green-400 font-bold">Prix: 1150 DA</p>
+                                </div>
                             </div>
+                            <p class="text-yellow-300 text-xs mt-3 text-center">👆 Cliquez pour retourner</p>
                         </div>
                     </div>
                 </div>
@@ -300,81 +401,107 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <!-- Burger Classic -->
-            <div class="flip-card h-80">
+            <div class="flip-card h-80" onclick="flipCard(this)">
                 <div class="flip-card-inner relative h-full">
                     <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                         <div class="relative h-full">
                             <img src="b1.jpg" alt="Burger Classic" class="w-full h-full object-cover opacity-80">
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
-                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
                                 <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CLASSIC</h3>
-                                <p class="text-white text-lg font-bold">Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
+                                <p class="text-white text-sm font-bold mb-3">Le burger traditionnel de Wanted</p>
                                 <div class="flex justify-between items-center mt-4 w-full">
                                     <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
                                     <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">⭐ CLASSIC</span>
                                 </div>
+                                <p class="text-yellow-300 text-xs mt-2">👆 Cliquez pour voir les détails</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CLASSIC BURGER</h3>
-                        <p class="text-white mb-4 font-bold">Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
-                        <div class="space-y-2 mb-4 text-yellow-200">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-3">CLASSIC BURGER</h3>
+                        <div class="bg-black bg-opacity-50 rounded-lg p-3 mb-3">
+                            <p class="text-white text-sm font-bold mb-2">🍔 DESCRIPTION COMPLÈTE:</p>
+                            <p class="text-white text-sm">Pain brioche grillé, steak haché 150g, salade fraîche, tomates juteuses, gruyère fondu et notre sauce maison secrète.</p>
+                        </div>
+                        <div class="space-y-2 mb-3 text-yellow-200 text-sm">
                             <div class="flex justify-between">
                                 <span>🥩 Viande:</span>
-                                <span class="font-semibold">Steak haché</span>
+                                <span class="font-semibold">Steak haché 150g</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>🧀 Fromage:</span>
                                 <span class="font-semibold">Gruyère</span>
                             </div>
+                            <div class="flex justify-between">
+                                <span>🥗 Légumes:</span>
+                                <span class="font-semibold">Salade, Tomate</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍞 Pain:</span>
+                                <span class="font-semibold">Brioche grillé</span>
+                            </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                            <span class="price-tag text-xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold text-sm">
                                 COMMANDER
                             </button>
                         </div>
+                        <p class="text-yellow-300 text-xs mt-2 text-center">👆 Cliquez pour retourner</p>
                     </div>
                 </div>
             </div>
 
             <!-- Chicken Burger -->
-            <div class="flip-card h-80">
+            <div class="flip-card h-80" onclick="flipCard(this)">
                 <div class="flip-card-inner relative h-full">
                     <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                         <div class="relative h-full">
                             <img src="b6.jpg" alt="Chicken Burger" class="w-full h-full object-cover opacity-80">
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
-                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
                                 <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN</h3>
-                                <p class="text-white text-lg font-bold">Poulet mariné, Salade, Tomate, Sauce maison, Gruyère</p>
+                                <p class="text-white text-sm font-bold mb-3">Poulet mariné savoureux</p>
                                 <div class="flex justify-between items-center mt-4 w-full">
                                     <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">400 DA</span>
                                     <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 POULET</span>
                                 </div>
+                                <p class="text-yellow-300 text-xs mt-2">👆 Cliquez pour voir les détails</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN BURGER</h3>
-                        <p class="text-white mb-4 font-bold">Poulet mariné, Salade, Tomate, Sauce maison, Gruyère</p>
-                        <div class="space-y-2 mb-4 text-yellow-200">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-3">CHICKEN BURGER</h3>
+                        <div class="bg-black bg-opacity-50 rounded-lg p-3 mb-3">
+                            <p class="text-white text-sm font-bold mb-2">🐔 DESCRIPTION COMPLÈTE:</p>
+                            <p class="text-white text-sm">Pain brioche grillé, filet de poulet mariné 150g aux épices spéciales, salade croquante, tomates fraîches, gruyère fondant et sauce maison.</p>
+                        </div>
+                        <div class="space-y-2 mb-3 text-yellow-200 text-sm">
                             <div class="flex justify-between">
                                 <span>🐔 Poulet:</span>
-                                <span class="font-semibold">Mariné</span>
+                                <span class="font-semibold">Mariné 150g</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>🧀 Fromage:</span>
                                 <span class="font-semibold">Gruyère</span>
                             </div>
+                            <div class="flex justify-between">
+                                <span>🌿 Marinade:</span>
+                                <span class="font-semibold">Épices spéciales</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍞 Pain:</span>
+                                <span class="font-semibold">Brioche grillé</span>
+                            </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">400 DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                            <span class="price-tag text-xl font-bold text-black px-3 py-1 rounded">400 DA</span>
+                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold text-sm">
                                 COMMANDER
                             </button>
                         </div>
+                        <p class="text-yellow-300 text-xs mt-2 text-center">👆 Cliquez pour retourner</p>
                     </div>
                 </div>
             </div>
@@ -1494,6 +1621,22 @@
     </footer>
 
     <script>
+        // Click-to-flip functionality for mobile
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+
+            // Add haptic feedback on mobile devices
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+
+            // Add visual feedback
+            card.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 150);
+        }
+
         // Optimized mobile experience with better performance
         document.addEventListener('DOMContentLoaded', function() {
             // Faster loading animation
@@ -1541,41 +1684,17 @@
                 });
             });
 
-            // Optimized touch support for flip cards
-            const flipCards = document.querySelectorAll('.flip-card');
-            flipCards.forEach(card => {
-                let touchStartTime = 0;
-                let touchEndTime = 0;
-                let isFlipped = false;
+            // Enhanced entrance animations
+            const cards = document.querySelectorAll('.flip-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
 
-                // Touch start
-                card.addEventListener('touchstart', function(e) {
-                    touchStartTime = new Date().getTime();
-                }, { passive: true });
-
-                // Touch end
-                card.addEventListener('touchend', function(e) {
-                    touchEndTime = new Date().getTime();
-                    const touchDuration = touchEndTime - touchStartTime;
-                    
-                    // Faster tap detection
-                    if (touchDuration > 50 && touchDuration < 500) {
-                        const inner = this.querySelector('.flip-card-inner');
-                        if (inner) {
-                            isFlipped = !isFlipped;
-                            inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
-                        }
-                    }
-                }, { passive: true });
-
-                // Add focus support for accessibility
-                card.addEventListener('focus', function() {
-                    const inner = this.querySelector('.flip-card-inner');
-                    if (inner) {
-                        isFlipped = !isFlipped;
-                        inner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
-                    }
-                });
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
             });
 
             // Optimized scroll performance
