@@ -41,35 +41,45 @@
         }
     </script>
     <style>
-        /* Mobile-First Responsive Design */
+        /* Premium Mobile-First Design */
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
         }
 
         .flip-card {
-            perspective: 1000px;
+            perspective: 1200px;
             touch-action: manipulation;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 320px;
+            margin-bottom: 1.5rem;
         }
 
         .flip-card:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
 
         .flip-card-inner {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             will-change: transform;
             position: relative;
             width: 100%;
             height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        /* Click-to-flip functionality - NO hover on mobile */
+        /* Enhanced flip functionality */
         .flip-card.flipped .flip-card-inner {
             transform: rotateY(180deg);
         }
@@ -80,85 +90,179 @@
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 16px;
+            border-radius: 20px;
+            overflow: hidden;
         }
 
         .flip-card-back {
             transform: rotateY(180deg);
         }
 
-        .food-icon {
-            font-size: 3rem;
-            opacity: 0.9;
+        /* Premium card styling */
+        .premium-card-front {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 2px solid #FFD700;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Enhanced Wanted Poster Styling */
-        .wanted-poster {
-            background: linear-gradient(45deg, #8B4513, #D2691E);
-            border: 6px solid #654321;
-            box-shadow:
-                inset 0 0 20px rgba(0,0,0,0.5),
-                0 0 20px rgba(0,0,0,0.3),
-                0 4px 15px rgba(0,0,0,0.2);
+        .premium-card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .premium-card-back {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #8B4513 100%);
+            border: 3px solid #654321;
             position: relative;
         }
 
-        .wanted-poster::before {
+        .premium-card-back::before {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: repeating-linear-gradient(
-                45deg,
-                #8B0000,
-                #8B0000 8px,
-                #DC143C 8px,
-                #DC143C 16px
-            );
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8B0000, #DC143C, #8B0000);
             z-index: -1;
-            border-radius: 16px;
+            border-radius: 20px;
         }
 
-        .wanted-text {
+        /* Enhanced image display */
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .flip-card:active .card-image {
+            transform: scale(1.05);
+        }
+
+        /* Premium overlay */
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
             font-family: 'Rye', serif;
-            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
-            color: #8B0000;
+            font-size: 1.8rem;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 0.5rem;
         }
 
-        .price-tag {
+        .card-price {
             background: linear-gradient(45deg, #FFD700, #FFA500);
-            border: 3px solid #8B4513;
-            transform: rotate(-3deg);
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease;
+            color: #000;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            display: inline-block;
+            transform: rotate(-2deg);
+            box-shadow: 0 4px 15px rgba(255,215,0,0.4);
         }
 
-        .price-tag:hover {
-            transform: rotate(-3deg) scale(1.05);
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
         }
 
-        /* Mobile Optimizations */
+        /* Mobile optimizations */
         @media (max-width: 768px) {
             .flip-card {
-                height: 280px !important;
+                height: 300px;
                 margin-bottom: 1rem;
             }
 
-            .flip-card-front, .flip-card-back {
-                padding: 1rem;
-            }
-
-            .wanted-text {
+            .card-title {
                 font-size: 1.5rem;
             }
 
-            .price-tag {
-                font-size: 1.2rem;
-                padding: 0.5rem 1rem;
+            .card-price {
+                font-size: 1.1rem;
+                padding: 0.4rem 0.8rem;
             }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .grid {
+                gap: 1rem;
+            }
+        }
+
+        /* Enhanced touch feedback */
+        .flip-card {
+            position: relative;
+        }
+
+        .flip-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,215,0,0.1);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+
+        .flip-card:active::after {
+            opacity: 1;
+        }
+
+        /* Premium button styling */
+        .premium-button {
+            background: linear-gradient(45deg, #DC143C, #8B0000);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(220,20,60,0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .premium-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(220,20,60,0.6);
         }
 
         /* Smooth scrolling */
@@ -166,13 +270,18 @@
             scroll-behavior: smooth;
         }
 
-        /* Enhanced touch feedback */
-        .flip-card:active .flip-card-inner {
-            transform: scale(0.95) rotateY(0deg);
+        /* Loading animation */
+        .card-loading {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 0.6s ease forwards;
         }
 
-        .flip-card.flipped:active .flip-card-inner {
-            transform: scale(0.95) rotateY(180deg);
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Mobile optimizations */
@@ -401,107 +510,99 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
             <!-- Burger Classic -->
-            <div class="flip-card h-80" onclick="flipCard(this)">
-                <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="relative h-full">
-                            <img src="488890100_18022639262694243_1073111090724868914_n.jpg" alt="Kid enjoying Wanted Burger Classic" class="w-full h-full object-cover opacity-90">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-50"></div>
-                            <div class="absolute inset-0 flex flex-col justify-end items-center text-center p-4">
-                                <div class="bg-black bg-opacity-80 rounded-xl p-4 border-4 border-yellow-400 w-full">
-                                    <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CLASSIC</h3>
-                                    <div class="flex justify-between items-center w-full">
-                                        <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
-                                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">⭐ CLASSIC</span>
-                                    </div>
-                                </div>
+            <div class="flip-card card-loading" onclick="flipCard(this)" style="animation-delay: 0.1s">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front premium-card-front">
+                        <img src="488890100_18022639262694243_1073111090724868914_n.jpg" alt="Kid enjoying Wanted Burger Classic" class="card-image">
+                        <div class="card-badge">⭐ CLASSIC</div>
+                        <div class="card-overlay">
+                            <h3 class="card-title">CLASSIC</h3>
+                            <div class="flex justify-between items-center">
+                                <span class="card-price">450 DA</span>
+                                <span class="text-white text-sm opacity-75">👆 Tap to flip</span>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
-                        <h3 class="text-2xl font-wanted text-yellow-400 mb-3">CLASSIC BURGER</h3>
-                        <div class="bg-black bg-opacity-50 rounded-lg p-3 mb-3">
+                    <div class="flip-card-back premium-card-back p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4 text-center">CLASSIC BURGER</h3>
+                        <div class="bg-black bg-opacity-60 rounded-xl p-4 mb-4 border border-yellow-400">
                             <p class="text-white text-sm font-bold mb-2">🍔 DESCRIPTION COMPLÈTE:</p>
-                            <p class="text-white text-sm">Pain brioche grillé, steak haché 150g, salade fraîche, tomates juteuses, gruyère fondu et notre sauce maison secrète.</p>
+                            <p class="text-white text-sm leading-relaxed">Pain brioche grillé, steak haché 150g, salade fraîche, tomates juteuses, gruyère fondu et notre sauce maison secrète.</p>
                         </div>
-                        <div class="space-y-2 mb-3 text-yellow-200 text-sm">
-                            <div class="flex justify-between">
-                                <span>🥩 Viande:</span>
-                                <span class="font-semibold">Steak haché 150g</span>
+                        <div class="grid grid-cols-2 gap-3 mb-4 text-yellow-200 text-sm">
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🥩 Viande</span>
+                                <span class="text-xs">Steak haché 150g</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🧀 Fromage:</span>
-                                <span class="font-semibold">Gruyère</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🧀 Fromage</span>
+                                <span class="text-xs">Gruyère</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🥗 Légumes:</span>
-                                <span class="font-semibold">Salade, Tomate</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🥗 Légumes</span>
+                                <span class="text-xs">Salade, Tomate</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🍞 Pain:</span>
-                                <span class="font-semibold">Brioche grillé</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🍞 Pain</span>
+                                <span class="text-xs">Brioche grillé</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="price-tag text-xl font-bold text-black px-3 py-1 rounded">450 DA</span>
-                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold text-sm">
+                            <span class="card-price">450 DA</span>
+                            <button class="premium-button" onclick="event.stopPropagation(); orderItem('Classic Burger', 450)">
                                 COMMANDER
                             </button>
                         </div>
-                        <p class="text-yellow-300 text-xs mt-2 text-center">👆 Cliquez pour retourner</p>
+                        <p class="text-yellow-300 text-xs mt-3 text-center opacity-75">👆 Tap to return</p>
                     </div>
                 </div>
             </div>
 
             <!-- Chicken Burger -->
-            <div class="flip-card h-80" onclick="flipCard(this)">
-                <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="relative h-full">
-                            <img src="b6.jpg" alt="Chicken Burger" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-4">
-                                <div class="bg-black bg-opacity-80 rounded-xl p-3 border-2 border-yellow-400">
-                                    <h3 class="text-2xl font-wanted text-yellow-400 mb-1" style="text-shadow: 2px 2px 4px #000;">CHICKEN</h3>
-                                    <div class="flex justify-between items-center">
-                                        <span class="price-tag text-xl font-bold text-black px-2 py-1 rounded">400 DA</span>
-                                        <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold">🐔 POULET</span>
-                                    </div>
-                                </div>
+            <div class="flip-card card-loading" style="animation-delay: 0.2s">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front premium-card-front">
+                        <img src="b6.jpg" alt="Chicken Burger" class="card-image">
+                        <div class="card-badge">🐔 POULET</div>
+                        <div class="card-overlay">
+                            <h3 class="card-title">CHICKEN</h3>
+                            <div class="flex justify-between items-center">
+                                <span class="card-price">400 DA</span>
+                                <span class="text-white text-sm opacity-75">👆 Tap to flip</span>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
-                        <h3 class="text-2xl font-wanted text-yellow-400 mb-3">CHICKEN BURGER</h3>
-                        <div class="bg-black bg-opacity-50 rounded-lg p-3 mb-3">
+                    <div class="flip-card-back premium-card-back p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4 text-center">CHICKEN BURGER</h3>
+                        <div class="bg-black bg-opacity-60 rounded-xl p-4 mb-4 border border-yellow-400">
                             <p class="text-white text-sm font-bold mb-2">🐔 DESCRIPTION COMPLÈTE:</p>
-                            <p class="text-white text-sm">Pain brioche grillé, filet de poulet mariné 150g aux épices spéciales, salade croquante, tomates fraîches, gruyère fondant et sauce maison.</p>
+                            <p class="text-white text-sm leading-relaxed">Pain brioche grillé, filet de poulet mariné 150g aux épices spéciales, salade croquante, tomates fraîches, gruyère fondant et sauce maison.</p>
                         </div>
-                        <div class="space-y-2 mb-3 text-yellow-200 text-sm">
-                            <div class="flex justify-between">
-                                <span>🐔 Poulet:</span>
-                                <span class="font-semibold">Mariné 150g</span>
+                        <div class="grid grid-cols-2 gap-3 mb-4 text-yellow-200 text-sm">
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🐔 Poulet</span>
+                                <span class="text-xs">Mariné 150g</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🧀 Fromage:</span>
-                                <span class="font-semibold">Gruyère</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🧀 Fromage</span>
+                                <span class="text-xs">Gruyère</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🌿 Marinade:</span>
-                                <span class="font-semibold">Épices spéciales</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🌿 Marinade</span>
+                                <span class="text-xs">Épices spéciales</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span>🍞 Pain:</span>
-                                <span class="font-semibold">Brioche grillé</span>
+                            <div class="bg-black bg-opacity-40 rounded-lg p-2">
+                                <span class="block font-bold">🍞 Pain</span>
+                                <span class="text-xs">Brioche grillé</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="price-tag text-xl font-bold text-black px-3 py-1 rounded">400 DA</span>
-                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold text-sm">
+                            <span class="card-price">400 DA</span>
+                            <button class="premium-button" onclick="event.stopPropagation(); orderItem('Chicken Burger', 400)">
                                 COMMANDER
                             </button>
                         </div>
-                        <p class="text-yellow-300 text-xs mt-2 text-center">👆 Cliquez pour retourner</p>
+                        <p class="text-yellow-300 text-xs mt-3 text-center opacity-75">👆 Tap to return</p>
                     </div>
                 </div>
             </div>
@@ -1647,23 +1748,50 @@
     </footer>
 
     <script>
-        // Click-to-flip functionality for mobile
+        // Enhanced mobile flip functionality
         function flipCard(card) {
+            // Prevent multiple rapid clicks
+            if (card.dataset.flipping === 'true') return;
+
+            card.dataset.flipping = 'true';
             card.classList.toggle('flipped');
 
-            // Add haptic feedback on mobile devices
+            // Enhanced haptic feedback
             if (navigator.vibrate) {
-                navigator.vibrate(50);
+                navigator.vibrate([30, 10, 30]);
             }
 
-            // Add visual feedback
-            card.style.transform = 'scale(0.98)';
+            // Visual feedback with better timing
+            card.style.transform = 'scale(0.96)';
             setTimeout(() => {
                 card.style.transform = 'scale(1)';
-            }, 150);
+                card.dataset.flipping = 'false';
+            }, 200);
         }
 
-        // Optimized mobile experience with better performance
+        // Order functionality
+        function orderItem(itemName, price) {
+            // Visual feedback for order
+            const button = event.target;
+            const originalText = button.textContent;
+
+            button.textContent = '✓ AJOUTÉ!';
+            button.style.background = 'linear-gradient(45deg, #10B981, #059669)';
+
+            // Haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 50]);
+            }
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+
+            console.log(`Ordered: ${itemName} - ${price} DA`);
+        }
+
+        // Enhanced mobile experience
         document.addEventListener('DOMContentLoaded', function() {
             // Faster loading animation
             const cards = document.querySelectorAll('.flip-card');
@@ -1710,17 +1838,60 @@
                 });
             });
 
-            // Enhanced entrance animations
+            // Enhanced mobile touch handling
             const cards = document.querySelectorAll('.flip-card');
+
             cards.forEach((card, index) => {
+                // Initialize card state
+                card.dataset.flipping = 'false';
+
+                // Enhanced touch events for mobile
+                let touchStartTime = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                card.addEventListener('touchstart', function(e) {
+                    touchStartTime = Date.now();
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+
+                    // Visual feedback on touch start
+                    this.style.transform = 'scale(0.98)';
+                }, { passive: true });
+
+                card.addEventListener('touchend', function(e) {
+                    const touchEndTime = Date.now();
+                    const touchDuration = touchEndTime - touchStartTime;
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+
+                    // Calculate movement
+                    const moveX = Math.abs(touchEndX - touchStartX);
+                    const moveY = Math.abs(touchEndY - touchStartY);
+
+                    // Reset visual feedback
+                    this.style.transform = 'scale(1)';
+
+                    // Only flip if it's a tap (not a scroll/swipe)
+                    if (touchDuration < 500 && moveX < 20 && moveY < 20) {
+                        flipCard(this);
+                    }
+                }, { passive: true });
+
+                // Prevent context menu on long press
+                card.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+
+                // Entrance animation
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+                card.style.transform = 'translateY(30px)';
 
                 setTimeout(() => {
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
-                }, index * 100);
+                }, index * 150);
             });
 
             // Optimized scroll performance
