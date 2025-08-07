@@ -41,7 +41,7 @@
         }
     </script>
     <style>
-        /* Optimized Mobile-First Design */
+        /* Mobile-First Optimized Design */
         * {
             -webkit-tap-highlight-color: transparent;
             -webkit-touch-callout: none;
@@ -55,16 +55,19 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
 
+        /* Mobile-optimized card design */
         .flip-card {
             perspective: 1000px;
             touch-action: manipulation;
             cursor: pointer;
             transition: transform 0.2s ease;
-            height: 300px;
-            margin-bottom: 1rem;
+            height: 320px; /* Increased height for mobile */
+            margin-bottom: 1.5rem; /* More spacing */
             will-change: transform;
+            contain: layout style paint;
         }
 
         .flip-card:active {
@@ -72,13 +75,13 @@
         }
 
         .flip-card-inner {
-            transition: transform 0.6s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             position: relative;
             width: 100%;
             height: 100%;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-radius: 20px; /* Larger radius for mobile */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
         /* Enhanced flip functionality */
@@ -103,14 +106,14 @@
         /* Optimized card styling */
         .premium-card-front {
             background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            border: 2px solid #FFD700;
+            border: 3px solid #FFD700; /* Thicker border for mobile */
             position: relative;
             overflow: hidden;
         }
 
         .premium-card-back {
             background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #8B4513 100%);
-            border: 2px solid #654321;
+            border: 3px solid #654321;
             position: relative;
         }
 
@@ -121,90 +124,141 @@
             object-fit: cover;
         }
 
-        /* Simplified overlay */
+        /* Enhanced overlay for better readability */
         .card-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
-            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 1.5rem; /* More padding for mobile */
             color: white;
         }
 
         .card-title {
             font-family: 'Rye', serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem; /* Larger text for mobile */
             color: #FFD700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
         }
 
         .card-price {
             background: linear-gradient(45deg, #FFD700, #FFA500);
             color: #000;
             font-weight: bold;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 1.1rem;
+            padding: 0.6rem 1.2rem; /* Larger touch target */
+            border-radius: 25px;
+            font-size: 1.3rem; /* Larger text */
             display: inline-block;
             transform: rotate(-1deg);
-            box-shadow: 0 2px 8px rgba(255,215,0,0.3);
+            box-shadow: 0 4px 12px rgba(255,215,0,0.4);
+            min-height: 44px; /* iOS touch target minimum */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card-badge {
             position: absolute;
-            top: 0.8rem;
-            right: 0.8rem;
-            background: rgba(0,0,0,0.8);
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.9);
             color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: bold;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
         }
 
-        /* Mobile optimizations */
+        /* Mobile-specific optimizations */
         @media (max-width: 768px) {
             .flip-card {
-                height: 280px;
-                margin-bottom: 0.8rem;
+                height: 350px; /* Even taller on mobile */
+                margin-bottom: 1.2rem;
             }
 
             .card-title {
-                font-size: 1.3rem;
+                font-size: 2rem;
             }
 
             .card-price {
-                font-size: 1rem;
-                padding: 0.3rem 0.6rem;
+                font-size: 1.5rem;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .grid {
+                gap: 1.2rem;
+            }
+
+            .card-overlay {
+                padding: 1.2rem;
+            }
+
+            /* Single column layout on mobile */
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Larger text sizes */
+            h1 { font-size: 3rem !important; }
+            h2 { font-size: 2.5rem !important; }
+            h3 { font-size: 2rem !important; }
+            p { font-size: 1.1rem !important; }
+
+            /* Better spacing */
+            .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+            .py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .mb-12 { margin-bottom: 3rem; }
+            .mb-8 { margin-bottom: 2rem; }
+            .mb-4 { margin-bottom: 1.5rem; }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .flip-card {
+                height: 380px;
+            }
+
+            .card-title {
+                font-size: 1.8rem;
+            }
+
+            .card-price {
+                font-size: 1.3rem;
+                padding: 0.7rem 1.3rem;
             }
 
             .container {
                 padding-left: 0.8rem;
                 padding-right: 0.8rem;
             }
-
-            .grid {
-                gap: 0.8rem;
-            }
-
-            .card-overlay {
-                padding: 0.8rem;
-            }
         }
 
-        /* Simplified button styling */
+        /* Simplified button styling with better touch targets */
         .premium-button {
             background: linear-gradient(45deg, #DC143C, #8B0000);
             border: none;
             color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
+            padding: 0.8rem 1.5rem; /* Larger touch target */
+            border-radius: 25px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 1rem;
             transition: transform 0.1s ease;
             text-transform: uppercase;
+            min-height: 48px; /* Android touch target minimum */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .premium-button:active {
@@ -224,16 +278,11 @@
         /* Mobile optimizations */
         @media (max-width: 768px) {
             .flip-card {
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
             }
             .flip-card-inner {
                 transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
         }
         
         /* Prevent text selection during touch */
@@ -269,42 +318,84 @@
                 animation: none;
             }
         }
+
+        /* Enhanced mobile header */
+        @media (max-width: 768px) {
+            .wanted-poster {
+                padding: 1.5rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .text-6xl {
+                font-size: 3rem !important;
+            }
+            
+            .text-4xl {
+                font-size: 2.5rem !important;
+            }
+            
+            .text-2xl {
+                font-size: 1.8rem !important;
+            }
+        }
+
+        /* Better mobile grid layout */
+        @media (max-width: 768px) {
+            .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .grid-cols-1.md\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Improved mobile spacing */
+        @media (max-width: 768px) {
+            .gap-8 {
+                gap: 1.5rem !important;
+            }
+            
+            .gap-6 {
+                gap: 1.2rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-amber-900 via-red-900 to-black min-h-screen">
     <!-- Promotional Banner -->
-    <div class="bg-red-600 text-white py-3 px-4 text-center animate-pulse">
+    <div class="bg-red-600 text-white py-4 px-4 text-center animate-pulse">
         <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6">
-            <p class="font-bold text-lg">🚨 ALERTE SPÉCIALE: Livraison GRATUITE aujourd'hui! Code: WANTED2024 🚨</p>
-            <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-white text-red-600 px-3 py-1 rounded-full hover:bg-gray-100 transition-colors">
+            <p class="font-bold text-lg md:text-xl">🚨 ALERTE SPÉCIALE: Livraison GRATUITE aujourd'hui! Code: WANTED2024 🚨</p>
+            <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-white text-red-600 px-4 py-2 rounded-full hover:bg-gray-100 transition-colors">
                 <span>📸</span>
-                <span class="font-bold text-sm">@wanted__burger1</span>
+                <span class="font-bold text-sm md:text-base">@wanted__burger1</span>
             </a>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="text-center py-8 px-4 relative">
-        <div class="wanted-poster rounded-3xl p-8 mx-auto max-w-4xl mb-6">
+    <header class="text-center py-6 md:py-8 px-4 relative">
+        <div class="wanted-poster rounded-3xl p-6 md:p-8 mx-auto max-w-4xl mb-6">
             <div class="text-center">
-                <h1 class="text-6xl md:text-8xl font-wanted wanted-text mb-4 animate-wanted-glow">
+                <h1 class="text-4xl md:text-6xl lg:text-8xl font-wanted wanted-text mb-4 animate-wanted-glow">
                     WANTED
                 </h1>
-                <h2 class="text-4xl md:text-6xl font-western text-yellow-400 mb-4" style="text-shadow: 2px 2px 4px #000;">
+                <h2 class="text-3xl md:text-4xl lg:text-6xl font-western text-yellow-400 mb-4" style="text-shadow: 2px 2px 4px #000;">
                     BURGER
                 </h2>
-                <div class="bg-black text-yellow-400 px-6 py-3 rounded-lg inline-block border-4 border-yellow-400">
-                    <p class="text-xl font-bold">🔥 LES MEILLEURS BURGERS D'ALGÉRIE 🔥</p>
+                <div class="bg-black text-yellow-400 px-4 md:px-6 py-3 rounded-lg inline-block border-4 border-yellow-400">
+                    <p class="text-lg md:text-xl font-bold">🔥 LES MEILLEURS BURGERS D'ALGÉRIE 🔥</p>
                 </div>
-                <div class="mt-4 flex justify-center space-x-4">
-                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">⭐ 4.8/5 Étoiles</span>
-                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🚚 Livraison 30min</span>
-                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">💳 Paiement à la livraison</span>
+                <div class="mt-4 flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
+                    <span class="bg-red-600 text-white px-3 py-2 rounded-full text-sm font-bold">⭐ 4.8/5 Étoiles</span>
+                    <span class="bg-green-600 text-white px-3 py-2 rounded-full text-sm font-bold">🚚 Livraison 30min</span>
+                    <span class="bg-blue-600 text-white px-3 py-2 rounded-full text-sm font-bold">💳 Paiement à la livraison</span>
                 </div>
             </div>
         </div>
-        <p class="text-2xl text-yellow-300 mb-2 font-bold">Bienvenue chez Wanted Burger - Où chaque burger est une récompense!</p>
-        <p class="text-lg text-red-300">أهلا وسهلا بكم في وانتد برغر</p>
+        <p class="text-xl md:text-2xl text-yellow-300 mb-2 font-bold">Bienvenue chez Wanted Burger - Où chaque burger est une récompense!</p>
+        <p class="text-base md:text-lg text-red-300">أهلا وسهلا بكم في وانتد برغر</p>
     </header>
 
     <!-- Special Offers Section -->
@@ -1708,9 +1799,9 @@
             });
 
             // Optimized mobile touch handling
-            const cards = document.querySelectorAll('.flip-card');
+            const flipCards = document.querySelectorAll('.flip-card');
 
-            cards.forEach((card) => {
+            flipCards.forEach((card) => {
                 // Initialize card state
                 card.dataset.flipping = 'false';
 
