@@ -1,29 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1e293b">
-    <link rel="preload" href="pizza03.jpg" as="image">
+    <meta name="theme-color" content="#8B0000">
     <link rel="preload" href="b1.jpg" as="image">
-    <link rel="preload" href="s1.jpg" as="image">
-    <title>Oui Oui Döner - Digital Menu</title>
+    <link rel="preload" href="b2.jpg" as="image">
+    <link rel="preload" href="b3.jpg" as="image">
+    <title>Wanted Burger - Menu Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rye&family=Butcherman&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     animation: {
                         'float': 'float 3s ease-in-out infinite',
+                        'wanted-glow': 'wanted-glow 2s ease-in-out infinite alternate',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'wanted-glow': {
+                            '0%': { textShadow: '0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000' },
+                            '100%': { textShadow: '0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000' }
                         }
+                    },
+                    fontFamily: {
+                        'wanted': ['Rye', 'serif'],
+                        'western': ['Butcherman', 'serif'],
+                        'creepy': ['Creepster', 'serif']
                     }
                 }
             }
@@ -58,6 +69,45 @@
         .food-icon {
             font-size: 4rem;
             opacity: 0.8;
+        }
+
+        /* Wanted Poster Styling */
+        .wanted-poster {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border: 8px solid #654321;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .wanted-poster::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: repeating-linear-gradient(
+                45deg,
+                #8B0000,
+                #8B0000 10px,
+                #DC143C 10px,
+                #DC143C 20px
+            );
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .wanted-text {
+            font-family: 'Rye', serif;
+            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            color: #8B0000;
+        }
+
+        .price-tag {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border: 3px solid #8B4513;
+            transform: rotate(-5deg);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
         }
         
         /* Mobile optimizations */
@@ -110,260 +160,787 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 min-h-screen">
+<body class="bg-gradient-to-br from-amber-900 via-red-900 to-black min-h-screen">
+    <!-- Promotional Banner -->
+    <div class="bg-red-600 text-white py-3 px-4 text-center animate-pulse">
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6">
+            <p class="font-bold text-lg">🚨 ALERTE SPÉCIALE: Livraison GRATUITE aujourd'hui! Code: WANTED2024 🚨</p>
+            <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-white text-red-600 px-3 py-1 rounded-full hover:bg-gray-100 transition-colors">
+                <span>📸</span>
+                <span class="font-bold text-sm">@wanted__burger1</span>
+            </a>
+        </div>
+    </div>
+
     <!-- Header -->
-    <header class="text-center py-8 px-4">
-        <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 animate-float">
-            Oui Oui Döner
-        </h1>
-        <p class="text-xl text-gray-300 mb-2">مرحبا بيكم عندا</p>
+    <header class="text-center py-8 px-4 relative">
+        <div class="wanted-poster rounded-3xl p-8 mx-auto max-w-4xl mb-6">
+            <div class="text-center">
+                <h1 class="text-6xl md:text-8xl font-wanted wanted-text mb-4 animate-wanted-glow">
+                    WANTED
+                </h1>
+                <h2 class="text-4xl md:text-6xl font-western text-yellow-400 mb-4" style="text-shadow: 2px 2px 4px #000;">
+                    BURGER
+                </h2>
+                <div class="bg-black text-yellow-400 px-6 py-3 rounded-lg inline-block border-4 border-yellow-400">
+                    <p class="text-xl font-bold">🔥 LES MEILLEURS BURGERS D'ALGÉRIE 🔥</p>
+                </div>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">⭐ 4.8/5 Étoiles</span>
+                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🚚 Livraison 30min</span>
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">💳 Paiement à la livraison</span>
+                </div>
+            </div>
+        </div>
+        <p class="text-2xl text-yellow-300 mb-2 font-bold">Bienvenue chez Wanted Burger - Où chaque burger est une récompense!</p>
+        <p class="text-lg text-red-300">أهلا وسهلا بكم في وانتد برغر</p>
     </header>
+
+    <!-- Special Offers Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="wanted-poster rounded-3xl p-8 mx-auto max-w-6xl mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-6xl font-wanted text-yellow-400 mb-4 animate-wanted-glow" style="text-shadow: 3px 3px 0px #000;">
+                    OFFRES SPÉCIALES
+                </h2>
+                <p class="text-2xl text-white font-bold">🎯 Récompenses limitées dans le temps!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 3 Offers -->
+                <div class="flip-card h-80">
+                    <div class="flip-card-inner relative h-full">
+                        <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                            <div class="relative h-full">
+                                <img src="3offer.jpg" alt="3 Offres Spéciales" class="w-full h-full object-cover opacity-80">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                                <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
+                                    <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">3 OFFRES</h3>
+                                    <p class="text-white text-sm font-bold">Offres spéciales limitées</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
+                            <h3 class="text-xl font-wanted text-yellow-400 mb-3">3 OFFRES SPÉCIALES</h3>
+                            <div class="text-white text-sm space-y-2">
+                                <p>🍔 Burger + Frites + Boisson</p>
+                                <p>🌮 Tacos + Frites + Boisson</p>
+                                <p>🥪 Sandwich + Frites + Boisson</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Offers -->
+                <div class="flip-card h-80">
+                    <div class="flip-card-inner relative h-full">
+                        <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                            <div class="relative h-full">
+                                <img src="4offer.jpg" alt="4 Offres Premium" class="w-full h-full object-cover opacity-80">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                                <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
+                                    <h3 class="text-2xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">4 OFFRES</h3>
+                                    <p class="text-white text-sm font-bold">Offres premium exclusives</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-4 flex flex-col justify-center">
+                            <h3 class="text-xl font-wanted text-yellow-400 mb-3">4 OFFRES PREMIUM</h3>
+                            <div class="text-white text-sm space-y-2">
+                                <p>🍔 Burger Premium + Extras</p>
+                                <p>🥩 Steak + Accompagnements</p>
+                                <p>🍗 Poulet + Sides</p>
+                                <p>🌮 Tacos XL + Boisson</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo Bandit -->
+                <div class="bg-black border-4 border-yellow-400 rounded-xl p-4 text-center">
+                    <h3 class="text-2xl font-wanted text-yellow-400 mb-3">COMBO BANDIT</h3>
+                    <div class="text-white space-y-1 mb-3 text-sm">
+                        <p>🍔 Burger Classic</p>
+                        <p>🍟 Frites Maison</p>
+                        <p>🥤 Boisson au choix</p>
+                    </div>
+                    <div class="flex justify-center items-center space-x-2">
+                        <span class="text-gray-400 line-through text-lg">950 DA</span>
+                        <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">850 DA</span>
+                    </div>
+                    <p class="text-green-400 font-bold mt-2 text-sm">ÉCONOMISEZ 100 DA!</p>
+                </div>
+
+                <!-- Menu Famille -->
+                <div class="bg-black border-4 border-red-400 rounded-xl p-4 text-center">
+                    <h3 class="text-2xl font-wanted text-red-400 mb-3">MENU FAMILLE</h3>
+                    <div class="text-white space-y-1 mb-3 text-sm">
+                        <p>🍔 4 Burgers au choix</p>
+                        <p>🍟 4 Portions de frites</p>
+                        <p>🥤 4 Boissons</p>
+                    </div>
+                    <div class="flex justify-center items-center space-x-2">
+                        <span class="text-gray-400 line-through text-lg">2200 DA</span>
+                        <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1900 DA</span>
+                    </div>
+                    <p class="text-green-400 font-bold mt-2 text-sm">ÉCONOMISEZ 300 DA!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Menu Categories -->
     <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-wanted text-yellow-400 mb-4" style="text-shadow: 3px 3px 0px #000;">
+                BURGERS PREMIUM
+            </h2>
+            <p class="text-xl text-red-300 font-bold">Nos criminellement délicieux burgers</p>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Pizza Card -->
+
+            <!-- Burger Classic -->
             <div class="flip-card h-80">
                 <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                         <div class="relative h-full">
-                            <img src="pizza03.jpg" alt="Pizza" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                            <img src="b1.jpg" alt="Burger Classic" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <h3 class="text-3xl font-bold text-white mb-2">Margherita Pizza</h3>
-                                <p class="text-white text-lg">Fresh mozzarella & basil</p>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CLASSIC</h3>
+                                <p class="text-white text-lg font-bold">Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
                                 <div class="flex justify-between items-center mt-4 w-full">
-                                    <span class="text-2xl font-bold text-white">300DA</span>
-                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">Classic</span>
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">⭐ CLASSIC</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Margherita Pizza</h3>
-                        <p class="text-gray-600 mb-4">Traditional Italian pizza with fresh mozzarella, tomato sauce, and fresh basil on our crispy crust.</p>
-                        <div class="space-y-2 mb-4">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CLASSIC BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Calories:</span>
-                                <span class="font-semibold">480 kcal</span>
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Steak haché</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Protein:</span>
-                                <span class="font-semibold">22g</span>
+                                <span>🧀 Fromage:</span>
+                                <span class="font-semibold">Gruyère</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-red-600">300DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Add to Order
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Burger Card -->
+            <!-- Chicken Burger -->
             <div class="flip-card h-80">
                 <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                         <div class="relative h-full">
-                            <img src="b1.jpg" alt="Gourmet Burger" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                            <img src="b6.jpg" alt="Chicken Burger" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <h3 class="text-3xl font-bold text-white mb-2">Gourmet Burger</h3>
-                                <p class="text-white text-lg">Juicy beef with premium toppings</p>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN</h3>
+                                <p class="text-white text-lg font-bold">Poulet mariné, Salade, Tomate, Sauce maison, Gruyère</p>
                                 <div class="flex justify-between items-center mt-4 w-full">
-                                    <span class="text-2xl font-bold text-white">300DA</span>
-                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">New</span>
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">400 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 POULET</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Gourmet Burger</h3>
-                        <p class="text-gray-600 mb-4">Premium beef patty with melted cheese, fresh lettuce, tomatoes, and our special sauce on a brioche bun.</p>
-                        <div class="space-y-2 mb-4">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Poulet mariné, Salade, Tomate, Sauce maison, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Calories:</span>
-                                <span class="font-semibold">680 kcal</span>
+                                <span>🐔 Poulet:</span>
+                                <span class="font-semibold">Mariné</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Protein:</span>
-                                <span class="font-semibold">35g</span>
+                                <span>🧀 Fromage:</span>
+                                <span class="font-semibold">Gruyère</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-red-600">300DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Add to Order
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">400 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pizza Card -->
+            <!-- Forest Burger -->
             <div class="flip-card h-80">
                 <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="relative h-full bg-gradient-to-br from-red-400 to-pink-500">
-                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <div class="food-icon mb-4">🍕</div>
-                                <h3 class="text-3xl font-bold text-white mb-2">Turkish Pizza</h3>
-                                <p class="text-white text-lg">Pide with authentic toppings</p>
-                                <div class="flex justify-between items-center mt-4 w-full">
-                                    <span class="text-2xl font-bold text-white">300DA</span>
-                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">Spicy</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Turkish Pizza (Pide)</h3>
-                        <p class="text-gray-600 mb-4">Traditional Turkish flatbread topped with minced meat, vegetables, and herbs, baked to perfection.</p>
-                        <div class="space-y-2 mb-4">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Calories:</span>
-                                <span class="font-semibold">520 kcal</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Protein:</span>
-                                <span class="font-semibold">28g</span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-red-600">300DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Add to Order
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Shawarma Special Card -->
-            <div class="flip-card h-80">
-                <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
                         <div class="relative h-full">
-                            <img src="s1.jpg" alt="Shawarma Special" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                            <img src="forest.jpeg" alt="Forest Burger" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <h3 class="text-3xl font-bold text-white mb-2">Shawarma Special</h3>
-                                <p class="text-white text-lg">Extra large with premium meat</p>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">FOREST</h3>
+                                <p class="text-white text-lg font-bold">Steak haché, Salade, Tomate, Sauce champignon, Gruyère, Oignon caramélisé</p>
                                 <div class="flex justify-between items-center mt-4 w-full">
-                                    <span class="text-2xl font-bold text-white">300DA</span>
-                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm">Premium</span>
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🌲 FOREST</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Shawarma Special</h3>
-                        <p class="text-gray-600 mb-4">Extra large shawarma with premium marinated meat, double portion of vegetables, and special sauce.</p>
-                        <div class="space-y-2 mb-4">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">FOREST BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché, Salade, Tomate, Sauce champignon, Gruyère, Oignon caramélisé</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Calories:</span>
-                                <span class="font-semibold">580 kcal</span>
+                                <span>🍄 Sauce:</span>
+                                <span class="font-semibold">Champignon</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Protein:</span>
-                                <span class="font-semibold">32g</span>
+                                <span>🧅 Oignon:</span>
+                                <span class="font-semibold">Caramélisé</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-red-600">300DA</span>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Add to Order
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sides Card -->
+            <!-- EGG Burger -->
             <div class="flip-card h-80">
                 <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="relative h-full bg-gradient-to-br from-yellow-400 to-orange-500">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="b121.jpg" alt="EGG Burger" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <div class="food-icon mb-4">🍟</div>
-                                <h3 class="text-3xl font-bold text-white mb-2">Sides & Drinks</h3>
-                                <p class="text-white text-lg mb-4">Perfect accompaniments</p>
-                                <div class="grid grid-cols-2 gap-4 text-sm">
-                                    <div class="bg-white bg-opacity-20 rounded-lg p-2">
-                                        <span class="font-bold">بطاطا مقلية</span><br>
-                                        <span>100DA</span>
-                                    </div>
-                                    <div class="bg-white bg-opacity-20 rounded-lg p-2">
-                                        <span class="font-bold">حمود بوعلام 1L</span><br>
-                                        <span>100DA</span>
-                                    </div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">EGG</h3>
+                                <p class="text-white text-lg font-bold">Steak haché, Œuf, Salade, Tomate, Sauce maison, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold">🥚 EGG</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Sides & Drinks</h3>
-                        <div class="space-y-3 mb-4">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">EGG BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché, Œuf, Salade, Tomate, Sauce maison, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">بطاطا مقلية</span>
-                                <span class="font-semibold">100DA</span>
+                                <span>🥚 Œuf:</span>
+                                <span class="font-semibold">Frais</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">حمود بوعلام 1L</span>
-                                <span class="font-semibold">100DA</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">coca مقاطعة</span>
-                                <span class="font-semibold text-red-600">1000DA ومنبيعوهاش</span>
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Steak haché</span>
                             </div>
                         </div>
-                        <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                            View All Sides
-                        </button>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact Card -->
+            <!-- CHICKEN PANED Burger -->
             <div class="flip-card h-80">
                 <div class="flip-card-inner relative h-full">
-                    <div class="flip-card-front bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="relative h-full bg-gradient-to-br from-blue-500 to-purple-600">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="nuggets.jpg" alt="Chicken Pané Burger" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
-                                <div class="food-icon mb-4">📞</div>
-                                <h3 class="text-3xl font-bold text-white mb-2">Contact Us</h3>
-                                <p class="text-white text-lg mb-4">We'd love to hear from you</p>
-                                <div class="space-y-2 text-sm">
-                                    <div>📞 +49 123 456 789</div>
-                                    <div>📧 info@ouiouidoner.de</div>
-                                    <div>📍 Hauptstraße 123, Berlin</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN PANÉ</h3>
+                                <p class="text-white text-lg font-bold">Poulet pané, Salade, Tomate, Sauce fromagère, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-bold">🍗 PANÉ</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="flip-card-back bg-white rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Opening Hours</h3>
-                        <div class="space-y-2 mb-4">
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN PANÉ</h3>
+                        <p class="text-white mb-4 font-bold">Poulet pané, Salade, Tomate, Sauce fromagère, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Monday - Friday</span>
-                                <span class="font-semibold">11:00 - 22:00</span>
+                                <span>🍗 Poulet:</span>
+                                <span class="font-semibold">Pané</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Saturday</span>
-                                <span class="font-semibold">12:00 - 23:00</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Sunday</span>
-                                <span class="font-semibold">13:00 - 21:00</span>
+                                <span>🧀 Sauce:</span>
+                                <span class="font-semibold">Fromagère</span>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-600 mb-2">Free delivery for orders over 3000DA</p>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
-                                Order Now
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROQUEFORT Burger -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-blue-600 to-purple-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🧀</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">ROQUEFORT</h3>
+                                <p class="text-white text-lg font-bold">Steak haché, Salade, Tomate, Sauce Roquefort</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">🧀 ROQUEFORT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">ROQUEFORT BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché, Salade, Tomate, Sauce Roquefort</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🧀 Sauce:</span>
+                                <span class="font-semibold">Roquefort</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Steak haché</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MIXTE Burger -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="op.jpg" alt="Mixte Burger" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">MIXTE</h3>
+                                <p class="text-white text-lg font-bold">Poulet mariné + Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-bold">🥩 MIXTE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">MIXTE BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Poulet mariné + Steak haché, Salade, Tomate, Sauce maison, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viandes:</span>
+                                <span class="font-semibold">Poulet + Steak</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🧀 Fromage:</span>
+                                <span class="font-semibold">Gruyère</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TWIN Burger -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-red-600 to-yellow-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">👯</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">TWIN</h3>
+                                <p class="text-white text-lg font-bold">Double viande, Salade, Tomate, Oignon, Sauce maison, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">👯 TWIN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">TWIN BURGER</h3>
+                        <p class="text-white mb-4 font-bold">Double viande, Salade, Tomate, Oignon, Sauce maison, Gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Double</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🧅 Oignon:</span>
+                                <span class="font-semibold">Inclus</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WANTED Burger -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-yellow-600 to-amber-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">👑</div>
+                                <h3 class="text-3xl font-wanted text-black mb-2" style="text-shadow: 2px 2px 4px #fff;">WANTED</h3>
+                                <p class="text-black text-lg font-bold">Steak haché, Salade, Tomate, Camembert, Oignon caramélisé, Miel et Noix</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded bg-white">700 DA</span>
+                                    <span class="bg-yellow-600 text-black px-3 py-1 rounded-full text-sm font-bold">👑 SIGNATURE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">WANTED SIGNATURE</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché, Salade, Tomate, Camembert, Oignon caramélisé, Miel et Noix</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🧀 Fromage:</span>
+                                <span class="font-semibold">Camembert</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍯 Spécial:</span>
+                                <span class="font-semibold">Miel et Noix</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">700 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sandwiches Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-wanted text-yellow-400 mb-4" style="text-shadow: 3px 3px 0px #000;">
+                SANDWICHES WANTED
+            </h2>
+            <p class="text-xl text-red-300 font-bold">Nos sandwiches signature</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Meat Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="meatsandwich.jpg" alt="Meat Sandwich" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">MEAT SANDWICH</h3>
+                                <p class="text-white text-lg font-bold">Viande grillée, légumes frais</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">🥩 MEAT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">MEAT SANDWICH</h3>
+                        <p class="text-white mb-4 font-bold">Viande grillée, laitue, tomates, oignons, cornichons et sauce dans un pain frais.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Grillée</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🥗 Légumes:</span>
+                                <span class="font-semibold">Frais</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chicken Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="nuggets.jpg" alt="Chicken Sandwich" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN SANDWICH</h3>
+                                <p class="text-white text-lg font-bold">Poulet grillé, sauce mayo</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 CHICKEN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN SANDWICH</h3>
+                        <p class="text-white mb-4 font-bold">Filet de poulet grillé, laitue, tomates et sauce mayo dans un pain frais.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🐔 Poulet:</span>
+                                <span class="font-semibold">Grillé</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🥗 Sauce:</span>
+                                <span class="font-semibold">Mayo</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">450 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chicken Pané -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="nuggetplate.jpg" alt="Chicken Pané" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN PANÉ</h3>
+                                <p class="text-white text-lg font-bold">Poulet pané croustillant</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-bold">🍗 PANÉ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN PANÉ</h3>
+                        <p class="text-white mb-4 font-bold">Filet de poulet pané croustillant, laitue, tomates et sauce dans un pain frais.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🍗 Poulet:</span>
+                                <span class="font-semibold">Pané</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🥗 Texture:</span>
+                                <span class="font-semibold">Croustillant</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">500 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filet Steak Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="Sandwich steak.jpg" alt="Filet Steak Sandwich" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">FILET STEAK</h3>
+                                <p class="text-white text-lg font-bold">Filet de bœuf premium</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">750 DA</span>
+                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">👑 PREMIUM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">FILET STEAK</h3>
+                        <p class="text-white mb-4 font-bold">Filet de bœuf grillé premium, légumes frais et sauce spéciale dans un pain artisanal.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Filet:</span>
+                                <span class="font-semibold">Premium</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>👑 Qualité:</span>
+                                <span class="font-semibold">Supérieure</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">750 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lamb Liver Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="plate.jpg" alt="Lamb Liver Sandwich" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">FOIE D'AGNEAU</h3>
+                                <p class="text-white text-lg font-bold">Spécialité traditionnelle</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">900 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐑 AGNEAU</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">FOIE D'AGNEAU</h3>
+                        <p class="text-white mb-4 font-bold">Foie d'agneau grillé, oignons, épices traditionnelles et sauce dans un pain frais.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🐑 Foie:</span>
+                                <span class="font-semibold">Agneau</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🌶️ Épices:</span>
+                                <span class="font-semibold">Traditionnelles</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">900 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mixte Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="op.jpg" alt="Mixte Sandwich" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">MIXTE</h3>
+                                <p class="text-white text-lg font-bold">Mélange de viandes</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-bold">🥩 MIXTE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">SANDWICH MIXTE</h3>
+                        <p class="text-white mb-4 font-bold">Mélange de viandes grillées, légumes frais et sauce dans un pain artisanal.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viandes:</span>
+                                <span class="font-semibold">Mélange</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🔥 Cuisson:</span>
+                                <span class="font-semibold">Grillées</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mexicain Sandwich -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-red-600 to-green-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🌶️</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">MEXICAIN</h3>
+                                <p class="text-white text-lg font-bold">Épicé à la mexicaine</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">600 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">🌶️ ÉPICÉ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">SANDWICH MEXICAIN</h3>
+                        <p class="text-white mb-4 font-bold">Viande épicée, jalapeños, fromage, sauce piquante et légumes dans un pain mexicain.</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🌶️ Niveau:</span>
+                                <span class="font-semibold text-red-400">ÉPICÉ</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🇲🇽 Style:</span>
+                                <span class="font-semibold">Mexicain</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">600 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
                             </button>
                         </div>
                     </div>
@@ -373,15 +950,547 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-8 px-4">
-        <div class="flex justify-center space-x-6 mb-4">
-            <div class="bg-white rounded-lg p-4 shadow-lg">
-                <h4 class="font-bold text-gray-800 mb-2">QR Code Menu</h4>
-                <p class="text-sm text-gray-600">Scan • Order • Enjoy</p>
+    <!-- Tacos Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-wanted text-yellow-400 mb-4" style="text-shadow: 3px 3px 0px #000;">
+                TACOS WANTED
+            </h2>
+            <p class="text-xl text-red-300 font-bold">Nos tacos signature algériens</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Tacos Meat Medium -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="taxos1.jpg" alt="Tacos Meat Medium" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🌮</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">TACOS MEAT</h3>
+                                <p class="text-white text-lg font-bold">Medium - Frites, Sauce fromagère, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm font-bold">📏 MEDIUM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">TACOS MEAT MEDIUM</h3>
+                        <p class="text-white mb-4 font-bold">Tortilla avec viande, frites, sauce fromagère, gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Meat</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>📏 Taille:</span>
+                                <span class="font-semibold">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">650 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tacos Meat Large -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="meattaxos.jpg" alt="Tacos Meat Large" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🌮</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">TACOS MEAT</h3>
+                                <p class="text-white text-lg font-bold">Large - Frites, Sauce fromagère, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">850 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">📏 LARGE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">TACOS MEAT LARGE</h3>
+                        <p class="text-white mb-4 font-bold">Grande tortilla avec viande, frites, sauce fromagère, gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Meat</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>📏 Taille:</span>
+                                <span class="font-semibold">Large</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">850 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tacos Chicken Medium -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-green-600 to-yellow-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🌮</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">TACOS CHICKEN</h3>
+                                <p class="text-white text-lg font-bold">Medium - Frites, Sauce fromagère, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">600 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 CHICKEN M</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">TACOS CHICKEN MEDIUM</h3>
+                        <p class="text-white mb-4 font-bold">Tortilla avec poulet, frites, sauce fromagère, gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🐔 Viande:</span>
+                                <span class="font-semibold">Chicken</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>📏 Taille:</span>
+                                <span class="font-semibold">Medium</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">600 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tacos Chicken Large -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-green-700 to-yellow-700">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-2">🌮</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">TACOS CHICKEN</h3>
+                                <p class="text-white text-lg font-bold">Large - Frites, Sauce fromagère, Gruyère</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">750 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 CHICKEN L</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">TACOS CHICKEN LARGE</h3>
+                        <p class="text-white mb-4 font-bold">Grande tortilla avec poulet, frites, sauce fromagère, gruyère</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🐔 Viande:</span>
+                                <span class="font-semibold">Chicken</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>📏 Taille:</span>
+                                <span class="font-semibold">Large</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">750 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <p class="text-gray-400">© 2024 Oui Oui Döner. All rights reserved.</p>
+    </div>
+
+    <!-- PLATS Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-wanted text-yellow-400 mb-4" style="text-shadow: 3px 3px 0px #000;">
+                PLATS WANTED
+            </h2>
+            <p class="text-xl text-red-300 font-bold">Tous les plats avec: Frites - Œuf - Salade - Riz</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- MEAT Plat -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="plate.jpg" alt="Meat Plat" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">MEAT PLAT</h3>
+                                <p class="text-white text-lg font-bold">Steak haché + Frites + Œuf + Salade + Riz</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1150 DA</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">🍽️ PLAT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">MEAT PLAT</h3>
+                        <p class="text-white mb-4 font-bold">Steak haché avec tous les accompagnements: Frites, Œuf, Salade, Riz</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Steak haché</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍽️ Complet:</span>
+                                <span class="font-semibold">4 accompagnements</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1150 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHICKEN Plat -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="nuggetplate.jpg" alt="Chicken Plat" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHICKEN PLAT</h3>
+                                <p class="text-white text-lg font-bold">Poulet mariné + Frites + Œuf + Salade + Riz</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1050 DA</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">🐔 PLAT</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">CHICKEN PLAT</h3>
+                        <p class="text-white mb-4 font-bold">Poulet mariné avec tous les accompagnements: Frites, Œuf, Salade, Riz</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🐔 Poulet:</span>
+                                <span class="font-semibold">Mariné</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍽️ Complet:</span>
+                                <span class="font-semibold">4 accompagnements</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1050 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILET STEAK Plat -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full">
+                            <img src="Sandwich steak.jpg" alt="Filet Steak Plat" class="w-full h-full object-cover opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">FILET STEAK</h3>
+                                <p class="text-white text-lg font-bold">Filet Steak + Frites + Œuf + Salade + Riz</p>
+                                <div class="flex justify-between items-center mt-4 w-full">
+                                    <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1850 DA</span>
+                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">👑 PREMIUM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">FILET STEAK PLAT</h3>
+                        <p class="text-white mb-4 font-bold">Filet Steak premium avec tous les accompagnements: Frites, Œuf, Salade, Riz</p>
+                        <div class="space-y-2 mb-4 text-yellow-200">
+                            <div class="flex justify-between">
+                                <span>🥩 Viande:</span>
+                                <span class="font-semibold">Filet Steak</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>👑 Qualité:</span>
+                                <span class="font-semibold">Premium</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1850 DA</span>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accompagnements & Boissons Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl font-wanted text-yellow-400 mb-4" style="text-shadow: 3px 3px 0px #000;">
+                ACCOMPAGNEMENTS & BOISSONS
+            </h2>
+            <p class="text-xl text-red-300 font-bold">Suppléments et boissons</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Accompagnements & Boissons -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-yellow-600 to-orange-600">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-4">🍟</div>
+                                <h3 class="text-3xl font-wanted text-black mb-2" style="text-shadow: 2px 2px 4px #fff;">ACCOMPAGNEMENTS</h3>
+                                <p class="text-black text-lg mb-4 font-bold">& BOISSONS</p>
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div class="bg-black bg-opacity-70 rounded-lg p-2 text-yellow-400">
+                                        <span class="font-bold">Frites Maison</span><br>
+                                        <span>400 DA</span>
+                                    </div>
+                                    <div class="bg-black bg-opacity-70 rounded-lg p-2 text-yellow-400">
+                                        <span class="font-bold">Coca-Cola</span><br>
+                                        <span>300 DA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">ACCOMPAGNEMENTS</h3>
+                        <div class="space-y-3 mb-4 text-white">
+                            <div class="flex justify-between">
+                                <span>🍟 Frites</span>
+                                <span class="font-semibold">150 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🍗 Nuggets</span>
+                                <span class="font-semibold">400 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🧀 Frites gratinées</span>
+                                <span class="font-semibold">300 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🥤 Canettes</span>
+                                <span class="font-semibold">100 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>🧃 Jus PM</span>
+                                <span class="font-semibold">100 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>💧 Eau minérale</span>
+                                <span class="font-semibold">50 DA</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>☕ Café</span>
+                                <span class="font-semibold">150 DA</span>
+                            </div>
+                        </div>
+                        <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                            VOIR TOUT
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Chéraga -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-red-600 to-black">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-4">📞</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">CHÉRAGA</h3>
+                                <p class="text-white text-lg mb-4 font-bold">Livraison rapide!</p>
+                                <div class="space-y-2 text-sm text-yellow-200">
+                                    <div>📞 0550 15 06 46</div>
+                                    <div>📧 contact@wantedburger.dz</div>
+                                    <div>📍 Chéraga, Alger</div>
+                                    <div class="mt-3">
+                                        <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105">
+                                            <span>📸</span>
+                                            <span class="font-bold">@wanted__burger1</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">HORAIRES CHÉRAGA</h3>
+                        <div class="space-y-2 mb-4 text-white">
+                            <div class="flex justify-between">
+                                <span>Dimanche - Jeudi</span>
+                                <span class="font-semibold">11:00 - 23:00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Vendredi - Samedi</span>
+                                <span class="font-semibold">11:00 - 00:00</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-yellow-200 mb-2 font-bold">🚚 Livraison GRATUITE dès 2500 DA</p>
+                            <p class="text-sm text-yellow-200 mb-4">⏱️ Livraison en 30 min max!</p>
+                            <div class="mb-4">
+                                <a href="https://www.google.com/maps?q=WANTED+BURGER,+Ch%C3%A9raga+16000&ftid=0x128fb1cad4b07f53:0xf9db740be97d6ddf&hl=fr-DZ&gl=dz&entry=gps&g_ep=CAISBjYuNDMuMhgAINeCAw%3D%3D&g_st=ic" target="_blank" class="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mb-2">
+                                    <span>📍</span>
+                                    <span class="font-bold">Voir sur Maps</span>
+                                </a>
+                            </div>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER MAINTENANT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Val d'Hydra -->
+            <div class="flip-card h-80">
+                <div class="flip-card-inner relative h-full">
+                    <div class="flip-card-front wanted-poster rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="relative h-full bg-gradient-to-br from-blue-600 to-black">
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+                                <div class="text-6xl mb-4">📞</div>
+                                <h3 class="text-3xl font-wanted text-yellow-400 mb-2" style="text-shadow: 2px 2px 4px #000;">VAL D'HYDRA</h3>
+                                <p class="text-white text-lg mb-4 font-bold">Livraison rapide!</p>
+                                <div class="space-y-2 text-sm text-yellow-200">
+                                    <div>📞 0554 57 23 56</div>
+                                    <div>📧 contact@wantedburger.dz</div>
+                                    <div>📍 Val d'Hydra, Alger</div>
+                                    <div class="mt-3">
+                                        <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105">
+                                            <span>📸</span>
+                                            <span class="font-bold">@wanted__burger1</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back wanted-poster rounded-2xl shadow-2xl p-6 flex flex-col justify-center">
+                        <h3 class="text-2xl font-wanted text-yellow-400 mb-4">HORAIRES VAL D'HYDRA</h3>
+                        <div class="space-y-2 mb-4 text-white">
+                            <div class="flex justify-between">
+                                <span>Dimanche - Jeudi</span>
+                                <span class="font-semibold">11:00 - 23:00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Vendredi - Samedi</span>
+                                <span class="font-semibold">11:00 - 00:00</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-yellow-200 mb-2 font-bold">🚚 Livraison GRATUITE dès 2500 DA</p>
+                            <p class="text-sm text-yellow-200 mb-4">⏱️ Livraison en 30 min max!</p>
+                            <div class="mb-4">
+                                <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 mb-2">
+                                    <span>📸</span>
+                                    <span class="font-bold">Suivez-nous sur Instagram</span>
+                                </a>
+                            </div>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-bold">
+                                COMMANDER MAINTENANT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RÈGLE N°1 Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="wanted-poster rounded-3xl p-8 mx-auto max-w-4xl">
+            <div class="text-center mb-6">
+                <h2 class="text-6xl font-wanted text-red-400 mb-4 animate-wanted-glow" style="text-shadow: 3px 3px 0px #000;">
+                    RÈGLE N°1
+                </h2>
+                <div class="bg-black border-4 border-yellow-400 rounded-xl p-8 text-center">
+                    <div class="text-8xl mb-4">🔥</div>
+                    <h3 class="text-5xl font-wanted text-yellow-400 mb-4">SÉDUIRE MON ESTOMAC</h3>
+                    <p class="text-white text-2xl font-bold mb-6">
+                        La mission de Wanted Burger: vous offrir une expérience culinaire inoubliable!
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+                        <div class="bg-red-600 rounded-lg p-4">
+                            <div class="text-3xl mb-2">🍔</div>
+                            <p class="font-bold">Qualité Premium</p>
+                        </div>
+                        <div class="bg-yellow-600 rounded-lg p-4 text-black">
+                            <div class="text-3xl mb-2">⚡</div>
+                            <p class="font-bold">Service Rapide</p>
+                        </div>
+                        <div class="bg-green-600 rounded-lg p-4">
+                            <div class="text-3xl mb-2">😋</div>
+                            <p class="font-bold">Goût Authentique</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 px-4">
+        <div class="wanted-poster rounded-3xl p-6 mx-auto max-w-2xl mb-6">
+            <h3 class="text-4xl font-wanted text-yellow-400 mb-4" style="text-shadow: 2px 2px 4px #000;">
+                RÉCOMPENSE SPÉCIALE
+            </h3>
+            <div class="bg-black text-yellow-400 px-6 py-4 rounded-lg border-4 border-yellow-400 mb-4">
+                <p class="text-lg font-bold">🎯 Menu QR Code</p>
+                <p class="text-sm">Scanner • Commander • Savourer</p>
+            </div>
+            <div class="text-white space-y-2">
+                <p class="font-bold">🏆 Menus Combo disponibles</p>
+                <p class="font-bold">🎁 Offres spéciales chaque semaine</p>
+                <p class="font-bold">⭐ Programme de fidélité</p>
+            </div>
+        </div>
+        <div class="mb-6">
+            <a href="https://www.instagram.com/wanted__burger1/?hl=fr" target="_blank" class="inline-flex items-center space-x-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                <span class="text-2xl">📸</span>
+                <div class="text-left">
+                    <p class="font-bold text-lg">Suivez-nous sur Instagram</p>
+                    <p class="text-sm opacity-90">@wanted__burger1</p>
+                </div>
+            </a>
+        </div>
+        <p class="text-yellow-400 font-bold text-lg">© 2024 Wanted Burger Algeria. Tous droits réservés.</p>
+        <p class="text-red-300 mt-2">🔥 "Où chaque burger est une récompense!" 🔥</p>
     </footer>
 
     <script>
@@ -424,6 +1533,11 @@
                     setTimeout(() => {
                         this.style.transform = 'scale(1)';
                     }, 100);
+
+                    // Add click sound effect (optional)
+                    if (this.textContent.includes('COMMANDER')) {
+                        console.log('Commande ajoutée!');
+                    }
                 });
             });
 
