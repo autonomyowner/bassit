@@ -482,18 +482,20 @@
                 </div>
 
                 <!-- Menu Famille -->
-                <div class="bg-black border-4 border-red-400 rounded-xl p-4 text-center">
-                    <h3 class="text-2xl font-wanted text-red-400 mb-3">MENU FAMILLE</h3>
-                    <div class="text-white space-y-1 mb-3 text-sm">
-                        <p>🍔 4 Burgers au choix</p>
-                        <p>🍟 4 Portions de frites</p>
-                        <p>🥤 4 Boissons</p>
+                <div class="relative border-4 border-red-400 rounded-xl p-4 text-center overflow-hidden" style="background-image: url('kid.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-wanted text-red-400 mb-3" style="text-shadow: 3px 3px 6px #000, -1px -1px 2px #000;">MENU FAMILLE</h3>
+                        <div class="text-white space-y-1 mb-3 text-sm font-bold">
+                            <p style="text-shadow: 2px 2px 4px #000;">🍔 4 Burgers au choix</p>
+                            <p style="text-shadow: 2px 2px 4px #000;">🍟 4 Portions de frites</p>
+                            <p style="text-shadow: 2px 2px 4px #000;">🥤 4 Boissons</p>
+                        </div>
+                        <div class="flex justify-center items-center space-x-2">
+                            <span class="text-gray-300 line-through text-lg" style="text-shadow: 2px 2px 4px #000;">2200 DA</span>
+                            <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1900 DA</span>
+                        </div>
+                        <p class="text-green-400 font-bold mt-2 text-sm" style="text-shadow: 2px 2px 4px #000;">ÉCONOMISEZ 300 DA!</p>
                     </div>
-                    <div class="flex justify-center items-center space-x-2">
-                        <span class="text-gray-400 line-through text-lg">2200 DA</span>
-                        <span class="price-tag text-2xl font-bold text-black px-3 py-1 rounded">1900 DA</span>
-                    </div>
-                    <p class="text-green-400 font-bold mt-2 text-sm">ÉCONOMISEZ 300 DA!</p>
                 </div>
             </div>
         </div>
@@ -513,7 +515,7 @@
             <div class="flip-card card-loading" onclick="flipCard(this)" style="animation-delay: 0.1s">
                 <div class="flip-card-inner">
                     <div class="flip-card-front premium-card-front">
-                        <img src="488890100_18022639262694243_1073111090724868914_n.jpg" alt="Kid enjoying Wanted Burger Classic" class="card-image">
+                        <img src="kid.jpg" alt="Kid enjoying Wanted Burger Classic" class="card-image">
                         <div class="card-badge">⭐ CLASSIC</div>
                         <div class="card-overlay">
                             <h3 class="card-title">CLASSIC</h3>
